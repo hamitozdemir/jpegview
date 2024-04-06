@@ -221,6 +221,8 @@ CSettingsProvider::CSettingsProvider(void) {
 		m_bExplicitWindowRect = true;
 	}
 
+	m_nNavigationSkipSteps = GetInt(_T("NavigationSkipSteps"), 1, 1, 50);
+
 	m_colorBackground = GetColor(_T("BackgroundColor"), 0);
 	m_colorGUI = GetColor(_T("GUIColor"), RGB(243, 242, 231));
 	m_colorHighlight = GetColor(_T("HighlightColor"), RGB(255, 205, 0));

@@ -1463,6 +1463,12 @@ void CMainDlg::ExecuteCommand(int nCommand) {
 		case IDM_LAST:
 			GotoImage(POS_Last);
 			break;
+		case IDM_NEXT_MULTI:
+			GotoImage(POS_NextMulti);
+			break;
+		case IDM_PREV_MULTI:
+			GotoImage(POS_PreviousMulti);
+			break;
 		case IDM_LOOP_FOLDER:
 		case IDM_LOOP_RECURSIVELY:
 		case IDM_LOOP_SIBLINGS:
@@ -2433,6 +2439,7 @@ void CMainDlg::GotoImage(EImagePosition ePos, int nFlags) {
 
 	int nFrameIndex = 0;
 	bool bCheckIfSameImage = true;
+	bool bMultiNavigation = false;
 	m_pFileList->SetCheckpoint();
 	CFileList* pOldFileList = m_pFileList;
 	int nOldFrameIndex = (m_pCurrentImage == NULL) ? 0 : m_pCurrentImage->FrameIndex();
@@ -2444,13 +2451,15 @@ void CMainDlg::GotoImage(EImagePosition ePos, int nFlags) {
 		case POS_Last:
 			m_pFileList->Last();
 			break;
+		case POS_NextMulti:
+			bMultiNavigation = true;
 		case POS_Next:
 		case POS_NextAnimation:
 			{
 				bool bGotoNextImage = true;
 				nFrameIndex = Helpers::GetFrameIndex(m_pCurrentImage, true, ePos == POS_NextAnimation, bGotoNextImage);
 				if (bGotoNextImage)
-					m_pFileList = m_pFileList->Next();
+					m_pFileList = m_pFileList->Next(bMultiNavigation);
 				else
 					bNoWrapAroundEdgeFrame = false; // the "next" operation didn't request going to the next image (next frame index is not current one)
 				break;
@@ -2458,11 +2467,13 @@ void CMainDlg::GotoImage(EImagePosition ePos, int nFlags) {
 		case POS_NextSlideShow:
 			m_pFileList = m_pFileList->Next();
 			break;
+		case POS_PreviousMulti:
+			bMultiNavigation = true;
 		case POS_Previous:
 			{
 				bool bGotoPrevImage;
 				nFrameIndex = Helpers::GetFrameIndex(m_pCurrentImage, false, false, bGotoPrevImage);
-				if (bGotoPrevImage) m_pFileList = m_pFileList->Prev();
+				if (bGotoPrevImage) m_pFileList = m_pFileList->Prev(bMultiNavigation);
 				eDirection = CJPEGProvider::BACKWARD;
 				bNoWrapAroundEdgeFrame = false; // previous image at edge is not a wraparound
 				break;

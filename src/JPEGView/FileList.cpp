@@ -359,13 +359,21 @@ void CFileList::ModificationTimeChanged() {
 	}
 }
 
-CFileList* CFileList::Next() {
+CFileList* CFileList::Next(bool bMulti = false) {
 	m_nMarkedIndexShow = -1;
 	if (m_fileList.size() > 0) {
 		std::list<CFileDesc>::iterator iterTemp = m_iter;
 		if (iterTemp == m_fileList.end())
 			return this;
 		iterTemp++;
+		if (bMulti) {
+			std::advance(iterTemp, CSettingsProvider::This().NavigationSkipSteps()); // check if works, otherwise use for loop
+			/*
+			for (int i = 0; i < CSettingsProvider::This().NavigationSkipSteps(); i++) { // i couldn't figure out how to iterTemp += CSettingsProvider::This().NavigationSkipSteps()
+				iterTemp++;
+			}
+			*/
+		}
 		if (iterTemp == m_fileList.end()) {
 			iterTemp = m_fileList.begin();
 		}
@@ -399,7 +407,7 @@ CFileList* CFileList::Next() {
 	return this;
 }
 
-CFileList* CFileList::Prev() {
+CFileList* CFileList::Prev(bool bMulti = false) {
 	m_nMarkedIndexShow = -1;
 	if (m_iter == m_iterStart) {
 		if (sm_eMode == Helpers::NM_LoopDirectory) {

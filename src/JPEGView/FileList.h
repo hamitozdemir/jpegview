@@ -77,9 +77,9 @@ public:
 
 	// Move to next file in list, wrap according to navigation mode. The filelist object
 	// of the next item is returned (in most situation the same object)
-	CFileList* Next();
+	CFileList* Next(bool bMulti = false);
 	// Move to previous file in list. The filelist object of the prev item is returned.
-	CFileList* Prev();
+	CFileList* Prev(bool bMulti = false);
 	// Move to first file in current folder (according to sort order)
 	void First();
 	// Move to last file in current folder (according to sort order)

@@ -166,7 +166,9 @@
 #define IDM_SHOW_FILENAME	3000		// :KeyMap: toggle show file name on top of screen
 #define IDM_SHOW_NAVPANEL   3100		// :KeyMap: toggle show navigation panel
 #define IDM_NEXT			4000		// :KeyMap: go to next image
+#define IDM_NEXT_MULTI		4001		// :KeyMap: go to next xth image (x = NavigationSkipSteps)
 #define IDM_PREV			5000		// :KeyMap: go to previous image
+#define IDM_PREV_MULTI		5001		// :KeyMap: go to previous xth image (x = NavigationSkipSteps)
 #define IDM_FIRST			5100		// :KeyMap: go to first image
 #define IDM_LAST			5200		// :KeyMap: go to last image
 #define IDM_LOOP_FOLDER		6000		// :KeyMap: set navigation mode loop through folder

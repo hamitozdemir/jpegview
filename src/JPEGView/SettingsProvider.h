@@ -132,6 +132,7 @@ public:
 	bool BeepSoundAlert() { return m_bBeepSoundAlert; }
 	bool WindowBorderlessOnStartup() { return m_bWindowBorderlessOnStartup; }
 	bool WindowAlwaysOnTopOnStartup() { return m_bWindowAlwaysOnTopOnStartup; }
+	int NavigationSkipSteps() { return m_nNavigationSkipSteps; }
 
 	double ZoomPauseFactor() { return m_zoomPauseFactor; }  // while internally this is represented in doubles, using a whole number percent simplifies it for the user... configuring doubles is not user friendly at all
 
@@ -303,6 +304,7 @@ private:
 	int m_zoomPauseFactor;
 	bool m_bWindowBorderlessOnStartup;
 	bool m_bWindowAlwaysOnTopOnStartup;
+	int m_nNavigationSkipSteps;
 
 	std::list<CUserCommand*> m_userCommands;
 	std::list<CUserCommand*> m_openWithCommands;
